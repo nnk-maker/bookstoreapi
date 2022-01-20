@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Http\Requests\StoreAuthorRequest;
 use App\Http\Requests\UpdateAuthorRequest;
-
+use App\Http\Resources\AuthorResource;
 class AuthorsController extends Controller
 {
     /**
@@ -48,17 +48,7 @@ class AuthorsController extends Controller
     public function show(Author $author)
     {
        // return $author;
-       return response()-> json([
-           'data' => [
-               'id' => $author->id,
-               'type' => 'Authors',
-               'attributes' => [
-                   'name' => $author->name,
-                   'created_at' => $author->created_at,
-                   'updated_at' => $author->updated_at
-               ]
-           ]
-       ]);
+       return new AuthorResource($author);
     }
 
     /**
