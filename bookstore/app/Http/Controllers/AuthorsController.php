@@ -36,7 +36,8 @@ class AuthorsController extends Controller
      * @param  \App\Http\Requests\StoreAuthorRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAuthorRequest $request)
+    //public function store(StoreAuthorRequest $request)
+    public function store(AuthorsRequest $request)
     {
         //return 'Test';
        
@@ -79,6 +80,7 @@ class AuthorsController extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
+    // public function update(UpdateAuthorRequest $request, Author $author)
     public function update(UpdateAuthorRequest $request, Author $author)
     {
         $author->update([
