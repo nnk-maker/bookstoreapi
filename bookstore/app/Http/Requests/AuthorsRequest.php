@@ -3,10 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Http\Resources\AuthorsResource;
-use App\Models\Author;
 
-class StoreAuthorRequest extends FormRequest
+
+class AuthorsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,13 +24,8 @@ class StoreAuthorRequest extends FormRequest
      */
     public function rules()
     {
-      /* $faker = \Faker\Factory::create(1);
-        $author = Author::create([
-            'name' => $faker->name
-        ]);
-        return new AuthorsResource($author);  */
-          return [
-            //new AuthorsResource($author)
-        ]; 
+        return [
+            'name' => 'required|unique:authors|max:255'
+        ];
     }
 }

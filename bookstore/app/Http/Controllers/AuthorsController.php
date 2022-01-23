@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Http\Requests\StoreAuthorRequest;
 use App\Http\Requests\UpdateAuthorRequest;
-use App\Http\Resources\AuthorResource;
+use App\Http\Resources\AuthorsResource;
+use App\Http\Requests\AuthorsRequest;
+
 class AuthorsController extends Controller
 {
     /**
@@ -15,7 +17,7 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-        //
+        return AuthorsResource::collection(Author::all());
     }
 
     /**
@@ -36,7 +38,14 @@ class AuthorsController extends Controller
      */
     public function store(StoreAuthorRequest $request)
     {
-        //
+        //return 'Test';
+       
+        
+        $faker = \Faker\Factory::create(1);
+        $author = Author::create([
+            'name' => $faker->name
+        ]);
+        return new AuthorsResource($author);  
     }
 
     /**
@@ -48,7 +57,8 @@ class AuthorsController extends Controller
     public function show(Author $author)
     {
        // return $author;
-       return new AuthorResource($author);
+       
+       return new AuthorsResource($author);
     }
 
     /**
@@ -71,7 +81,10 @@ class AuthorsController extends Controller
      */
     public function update(UpdateAuthorRequest $request, Author $author)
     {
-        //
+        $author->update([
+            'name' => $request->input('name')
+        ]);
+        return new AuthorsResource($author);
     }
 
     /**
@@ -82,6 +95,7 @@ class AuthorsController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
+        return response(null,204);
     }
 }
